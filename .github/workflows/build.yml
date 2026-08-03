@@ -26,8 +26,30 @@ jobs:
       - name: Build debug APK
         run: gradle assembleDebug
 
-      - name: Upload APK
+      - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
           name: TATU-app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Decode keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > $RUNNER_TEMP/release.jks
+
+      - name: Build release APK
+        env:
+          RELEASE_KEYSTORE_PATH: ${{ github.workspace }}/../release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          cp $RUNNER_TEMP/release.jks app/release.jks
+          RELEASE_KEYSTORE_PATH=release.jks gradle assembleRelease
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TATU-app-release
+          path: app/build/outputs/apk/release/app-release.apk
