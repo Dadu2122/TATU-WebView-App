@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
+
     private lateinit var offlineLayout: View
 
     private var filePathCallback: ValueCallback<Array<Uri>>? = null
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         webView = findViewById(R.id.webView)
         progressBar = findViewById(R.id.progressBar)
         swipeRefresh = findViewById(R.id.swipeRefresh)
+        swipeRefresh.isEnabled = false
         offlineLayout = findViewById(R.id.offlineLayout)
 
         setupFileChooserLauncher()
