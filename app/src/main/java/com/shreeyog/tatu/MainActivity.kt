@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         settings.domStorageEnabled = true          // localStorage ke liye zaroori
         settings.databaseEnabled = true
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
-        settings.cacheMode = WebSettings.LOAD_DEFAULT
+        settings.cacheMode = WebSettings.LOAD_NO_CACHE
         settings.setSupportZoom(false)
         settings.mediaPlaybackRequiresUserGesture = false
         settings.allowFileAccess = false
